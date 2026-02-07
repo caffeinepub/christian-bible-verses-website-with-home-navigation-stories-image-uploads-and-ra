@@ -1,35 +1,43 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T19:20:33.988Z",
-  "summary": "Frontend changes implement an admin-gated image upload UI using a new React Query hook that calls a backend `isAdmin()` method. However, the backend diff is truncated right where the admin-only upload enforcement and any new `isAdmin` query endpoint would appear, so backend requirements cannot be confirmed from the provided evidence.",
+  "generatedAt": "2026-02-07T20:12:22.192Z",
+  "summary": "Frontend change to PublicImage resets error state on URL change (matches REQ-17). Backend changes show introduction of a migration hook and inclusion of blob storage/authorization mixins, but the diff summary does not provide evidence that image/blob read access is now public for anonymous users or that existing stored images are made publicly readable after upgrade.",
   "missing_requirements": [
     {
-      "id": "REQ-7",
-      "requirement": "Enforce backend authorization so that only the single admin (site owner) can upload or replace story/verse images; all other users must be rejected by the backend if they attempt to upload.",
-      "reason": "The backend file is truncated at the point where the \"Add Story or Verse Image (Admin Only)\" implementation would appear, so there is no visible evidence that `addStoryOrVerseImage` performs an admin check and rejects non-admin callers without modifying data.",
+      "id": "REQ-15",
+      "requirement": "Update backend blob/image storage authorization so that any uploaded story/verse image is publicly readable by anyone (including anonymous/signed-out visitors), while keeping upload/replace strictly admin-only.",
+      "reason": "The provided backend/main.mo snippet is truncated before the image upload/read endpoints, and there is no explicit evidence in the diff summary that anonymous/public read access was enabled for stored blobs or that story/verse queries no longer require authentication for image URLs/metadata.",
       "evidence": [
-        "backend/main.mo (truncated; shows comment 'Add Story or Verse Image (Admin Only)' then cuts off)",
-        "frontend/src/hooks/useQueries.ts (calls actor.addStoryOrVerseImage(...), but does not prove backend enforcement)"
+        "backend/main.mo (truncated)"
       ]
     },
     {
-      "id": "REQ-8",
-      "requirement": "Expose a backend query method that allows the frontend to determine whether the current caller is the admin (site owner).",
-      "reason": "Frontend code calls `actor.isAdmin()`, but the backend diff excerpt does not show any `isAdmin` query method implementation; the relevant portion may be in the truncated section.",
+      "id": "REQ-16",
+      "requirement": "Ensure previously uploaded image(s) already stored in the canister become publicly readable after the authorization change, without requiring the admin to re-upload; add a Motoko state migration only if necessary.",
+      "reason": "backend/migration.mo was added but the migration is a no-op (returns old state unchanged) and includes a comment that state is implicitly updated; there is no evidence of any actual state/permission update for existing images/blobs or proof that no migration is needed and existing blobs will become public after upgrade.",
       "evidence": [
-        "frontend/src/hooks/useQueries.ts (useIsCallerAdmin calls actor.isAdmin())",
-        "backend/main.mo (truncated; no visible isAdmin query signature/body)"
+        "backend/migration.mo",
+        "backend/main.mo (truncated)"
       ]
     }
   ],
-  "hallucinated_features": [],
+  "hallucinated_features": [
+    {
+      "description": "Added a backend migration module and wired it into the canister upgrade path, but the migration function is a no-op.",
+      "reason": "The BuildRequest allows adding backend/migration.mo only if required to preserve previously uploaded images via state upgrade. The diff shows migration.mo was added regardless, but does not show any required state transformation being performed.",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo (with migration = Migration.run)"
+      ]
+    }
+  ],
   "confidence": 0.62,
   "changed_files": [
     "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/story/ImageUploadSection.tsx",
-    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/components/story/PublicImage.tsx",
     "project_state.json"
   ]
 }

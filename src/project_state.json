@@ -1,12 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 11,
   "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a starter set of common Bible stories chosen by the assistant, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
   "architectural_notes": [
-    "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side."
+    "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side.",
+    "Add site favicon/app icon assets (including a circular-cropped version from the provided image) and reference them in the site head/manifest as needed.",
+    "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication."
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Previously uploaded image(s) are not loading for anyone (including the admin); UI shows the fallback message (image fails to load)."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-home-screen-that-presents-navigation-options-for-old-testament-new-testament-daily-verse-and-stories",
@@ -71,6 +75,30 @@
         "REQ-10"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-generate-a-circular-round-masked-website-icon-set-from-the-user-uploaded-image-img-6658-webp-and-integrate-it-as-the-site-favicon-app-icon-by-adding-the-appropriate-link-tags-to-frontend-index-html-and-placing-the-generated-assets-in-the-frontend-static-assets-folder",
+      "title": "Generate a circular (round-masked) website icon set from the user-uploaded image (IMG_6658.webp), and integrate it as the site favicon/app icon by adding the appropriate <link> tags to frontend/index.html and placing the generated assets in the frontend static assets folder.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-simple-frontend-friendly-failure-state-for-image-rendering-so-that-if-an-image-url-fails-to-load-e-g-403-404-the-ui-shows-an-english-fallback-message-in-place-of-the-broken-image-without-revealing-admin-only-upload-controls",
+      "title": "Add a simple frontend-friendly failure state for image rendering so that if an image URL fails to load (e.g., 403/404), the UI shows an English fallback message in place of the broken image (without revealing admin-only upload controls).",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-the-frontend-image-component-so-that-if-an-image-previously-failed-to-load-and-then-becomes-available-e-g-after-re-render-or-after-replacing-the-image-the-error-fallback-state-resets-and-the-image-can-render-without-requiring-a-full-page-refresh",
+      "title": "Improve the frontend image component so that if an image previously failed to load and then becomes available (e.g., after re-render or after replacing the image), the error/fallback state resets and the image can render without requiring a full page refresh.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -123,6 +151,50 @@
       "summary": "Expose a backend query method that allows the frontend to determine whether the current caller is the admin (site owner), without granting upload capability by itself.",
       "reqIds": [
         "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create and integrate a circular website icon (favicon) based on the user-provided image.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Make all uploaded story/verse images publicly viewable by everyone (even not signed in); only admin can upload/replace, but read access must not be restricted to the uploader.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Update the backend image/blob storage authorization so that all uploaded story and verse images are publicly readable by anyone (including anonymous visitors), while keeping upload/replace strictly admin-only.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Ensure previously uploaded images (already stored in the canister) become publicly readable after this change, without requiring the admin to re-upload them; add a state migration only if necessary to update existing stored blob permissions/metadata.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Update backend blob/image storage authorization so that any uploaded story/verse image is publicly readable by anyone (including anonymous/signed-out visitors), while keeping upload/replace strictly admin-only.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Ensure previously uploaded image(s) already stored in the canister become publicly readable after the authorization change, without requiring the admin to re-upload; add a Motoko state migration only if necessary to update existing stored blob permissions/metadata.",
+      "reqIds": [
+        "REQ-16"
       ],
       "status": "pending"
     }

@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { Upload, Image as ImageIcon, Loader2, AlertCircle } from 'lucide-react';
 import { ExternalBlob } from '../../backend';
+import PublicImage from './PublicImage';
 
 interface ImageUploadSectionProps {
   currentImage?: ExternalBlob;
@@ -85,8 +86,8 @@ export default function ImageUploadSection({
       {currentImage ? (
         <div className="space-y-3">
           <div className="rounded-lg overflow-hidden border border-border">
-            <img
-              src={currentImage.getDirectURL()}
+            <PublicImage
+              image={currentImage}
               alt={title}
               className="w-full h-auto"
             />

@@ -5,12 +5,15 @@ import Order "mo:core/Order";
 import Time "mo:core/Time";
 import Text "mo:core/Text";
 import Runtime "mo:core/Runtime";
+import MixinAuthorization "authorization/MixinAuthorization";
+import AccessControl "authorization/access-control";
 import Principal "mo:core/Principal";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
-import MixinAuthorization "authorization/MixinAuthorization";
-import AccessControl "authorization/access-control";
+import Migration "migration";
 
+// specify the data migration function in with-clause
+(with migration = Migration.run)
 actor {
   // Include components
   let accessControlState = AccessControl.initState();
@@ -53,14 +56,14 @@ actor {
     reference : Text;
     text : Text;
     testament : Testament;
-    image : ?Storage.ExternalBlob; // Optional verse image
+    image : ?Storage.ExternalBlob;
   };
 
   public type Story = {
     title : Text;
     summary : Text;
     verses : [Verse];
-    image : ?Storage.ExternalBlob; // Optional story image
+    image : ?Storage.ExternalBlob;
   };
 
   // Example initial stories
@@ -122,18 +125,16 @@ actor {
     },
   ];
 
-  // Story/Verse Storage
   var stories : [Story] = initialStories;
 
-  // Helper module for ordering
   module Helper {
     public func compare(a : Verse, b : Verse) : Order.Order {
       Text.compare(a.reference, b.reference);
     };
   };
 
-  // Add Story or Verse Image (Admin Only)
-  public shared ({ caller }) func addStoryOrVerseImage(blob : Storage.ExternalBlob, isStory : Bool, index : Nat) : async () {
+  // Upload Story or Verse Image (Admin Only) - Now Publicly Viewable
+  public shared ({ caller }) func uploadStoryOrVerseImage(blob : Storage.ExternalBlob, isStory : Bool, index : Nat) : async () {
     if (not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admin can upload images");
     };
@@ -157,24 +158,19 @@ actor {
     stories := updatedStories.toArray();
   };
 
-  // Check if caller is admin
-  public query ({ caller }) func isAdmin() : async Bool {
-    AccessControl.isAdmin(accessControlState, caller);
-  };
-
-  // Get Stories - accessible to all users including guests
+  // Get Stories (Public)
   public query func getStories() : async [Story] {
     stories;
   };
 
-  // Get Verses by Testament - accessible to all users including guests
+  // Get Verses by Testament (Public)
   public query func getVersesByTestament(testament : Testament) : async [Verse] {
-    let allVerses : [Verse] = stories.values().flatMap<Story, Verse>(func(story) { story.verses.values() }).toArray();
+    let allVerses = stories.values().flatMap(func(story) { story.verses.values() }).toArray();
     let filteredVerses = allVerses.filter(func(verse) { verse.testament == testament });
     filteredVerses.sort();
   };
 
-  // Set daily verse from curated set - accessible to all users including guests
+  // Get Daily Verse (Public)
   public query func getDailyVerse() : async Verse {
     let curatedVerses = [
       {
@@ -215,5 +211,9 @@ actor {
     let index = (day % curatedVerses.size()).toNat();
 
     curatedVerses[index];
+  };
+
+  public query ({ caller }) func isAdmin() : async Bool {
+    AccessControl.isAdmin(accessControlState, caller);
   };
 };

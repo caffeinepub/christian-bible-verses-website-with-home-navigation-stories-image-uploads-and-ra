@@ -19,7 +19,6 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'success' : IDL.Opt(IDL.Bool),
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
-export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
@@ -27,6 +26,7 @@ export const UserRole = IDL.Variant({
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const Testament = IDL.Variant({ 'new' : IDL.Null, 'old' : IDL.Null });
+export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const Verse = IDL.Record({
   'text' : IDL.Text,
   'testament' : Testament,
@@ -68,7 +68,6 @@ export const idlService = IDL.Service({
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-  'addStoryOrVerseImage' : IDL.Func([ExternalBlob, IDL.Bool, IDL.Nat], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
@@ -83,6 +82,11 @@ export const idlService = IDL.Service({
   'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'uploadStoryOrVerseImage' : IDL.Func(
+      [ExternalBlob, IDL.Bool, IDL.Nat],
+      [],
+      [],
+    ),
 });
 
 export const idlInitArgs = [];
@@ -99,7 +103,6 @@ export const idlFactory = ({ IDL }) => {
     'success' : IDL.Opt(IDL.Bool),
     'topped_up_amount' : IDL.Opt(IDL.Nat),
   });
-  const ExternalBlob = IDL.Vec(IDL.Nat8);
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
@@ -107,6 +110,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const Testament = IDL.Variant({ 'new' : IDL.Null, 'old' : IDL.Null });
+  const ExternalBlob = IDL.Vec(IDL.Nat8);
   const Verse = IDL.Record({
     'text' : IDL.Text,
     'testament' : Testament,
@@ -148,11 +152,6 @@ export const idlFactory = ({ IDL }) => {
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
-    'addStoryOrVerseImage' : IDL.Func(
-        [ExternalBlob, IDL.Bool, IDL.Nat],
-        [],
-        [],
-      ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
@@ -167,6 +166,11 @@ export const idlFactory = ({ IDL }) => {
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'uploadStoryOrVerseImage' : IDL.Func(
+        [ExternalBlob, IDL.Bool, IDL.Nat],
+        [],
+        [],
+      ),
   });
 };
 

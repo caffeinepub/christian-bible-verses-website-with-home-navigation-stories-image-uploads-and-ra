@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, AlertCircle } from 'lucide-react';
 import { Testament } from '../backend';
+import PublicImage from '../components/story/PublicImage';
 
 export default function VerseDetailPage() {
   const { verseId } = useParams({ from: '/verse/$verseId' });
@@ -97,8 +98,8 @@ export default function VerseDetailPage() {
                 <div className="space-y-2">
                   <h3 className="font-serif text-lg font-semibold">Image</h3>
                   <div className="rounded-lg overflow-hidden border border-border">
-                    <img
-                      src={verse.image.getDirectURL()}
+                    <PublicImage
+                      image={verse.image}
                       alt={verse.reference}
                       className="w-full h-auto"
                     />
@@ -112,4 +113,3 @@ export default function VerseDetailPage() {
     </div>
   );
 }
-

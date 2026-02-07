@@ -1,43 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Admin-only image upload controls (frontend gating via admin status)",
+  "title": "Reset PublicImage error state when image changes",
   "requirements": [
     {
-      "id": "REQ-9",
-      "summary": "Hide story/verse image upload UI for guests and non-admin users while keeping existing images visible to everyone.",
+      "id": "REQ-17",
+      "summary": "Reset the PublicImage fallback/error state when the provided image changes so newly available images render without a full refresh.",
       "acceptanceCriteria": [
-        "When logged out, the story page shows any existing story image but does not show any upload controls.",
-        "When logged in as a non-admin, the story page shows any existing story image but does not show any upload controls.",
-        "When logged in as the admin, the story page shows the upload controls and can successfully upload/replace images.",
-        "User-facing text is in English and does not instruct non-admin users to upload images (e.g., remove/replace prompts like “Login to upload an image” for non-admin/guest views)."
+        "When the `image` prop passed to `frontend/src/components/story/PublicImage.tsx` changes, the component clears any prior error state and attempts to load the new URL.",
+        "After the backend visibility fix, navigating away and back (or otherwise causing a re-render) allows the previously failing image to display instead of remaining stuck on the fallback UI.",
+        "All user-facing fallback text remains in English (e.g., current 'Image failed to load')."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/story/ImageUploadSection.tsx",
+          "path": "frontend/src/components/story/PublicImage.tsx",
           "operation": "modify",
-          "description": "Update conditional rendering so upload controls (file picker, upload button, and replacement prompt) render only when the caller is admin (use the admin-status React Query hook). Keep the existing image preview visible for all users. Remove/replace guest/non-admin prompts like “Login to upload an image” and the login-to-upload alert with neutral English text (e.g., ‘No image available’ / no upload instructions). Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Add a React Query hook to fetch caller admin status and wire it into image upload UI so it updates correctly after login/logout.",
-      "acceptanceCriteria": [
-        "A React Query hook exists to fetch admin status and is invalidated/refetched appropriately when identity changes (login/logout).",
-        "The image upload component(s) use the fetched admin status (not just “is authenticated”) to determine whether to render upload controls.",
-        "No changes are made to frontend immutable paths (Internet Identity and actor hooks), and the solution composes with existing hooks/components."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add a new React Query hook (e.g., useIsCallerAdmin) that calls the backend capability to determine admin status (use the boolean-returning admin check method exposed by the backend actor). Key the query by the current identity principal string (or ‘anonymous’) so it naturally refreshes on login/logout without modifying immutable auth/actor hooks. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/story/ImageUploadSection.tsx",
-          "operation": "modify",
-          "description": "Consume the new admin-status hook and use it (not identity presence) to gate the upload controls and any upload-related helper text. Ensure the UI transitions correctly after login/logout (admin status refetch). Verify the component's usage instructions before implementing."
+          "description": "Update the image rendering logic to reset `hasError` when the `image` prop (or its derived direct URL via the blob-storage `ExternalBlob.getDirectURL()` capability) changes, so a previously failed image can retry and render on subsequent renders without a full page refresh. Verify the component's usage instructions before implementing."
         }
       ]
     }

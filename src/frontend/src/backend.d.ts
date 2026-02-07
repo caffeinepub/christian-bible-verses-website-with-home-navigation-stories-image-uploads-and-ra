@@ -39,7 +39,6 @@ export enum UserRole {
     guest = "guest"
 }
 export interface backendInterface {
-    addStoryOrVerseImage(blob: ExternalBlob, isStory: boolean, index: bigint): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
@@ -50,4 +49,5 @@ export interface backendInterface {
     isAdmin(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    uploadStoryOrVerseImage(blob: ExternalBlob, isStory: boolean, index: bigint): Promise<void>;
 }

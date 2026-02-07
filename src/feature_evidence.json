@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-image-upload-ui-so-that-the-upload-controls-are-shown-only-for-the-admin-user-non-admin-users-must-not-see-the-file-picker-upload-button-non-admin-users-should-still-be-able-to-view-existing-images",
-      "featureTitle": "Update the image upload UI so that the upload controls are shown only for the admin user; non-admin users must not see the file picker/upload button. Non-admin users should still be able to view existing images.",
+      "featureId": "feature-improve-the-frontend-image-component-so-that-if-an-image-previously-failed-to-load-and-then-becomes-available-e-g-after-re-render-or-after-replacing-the-image-the-error-fallback-state-resets-and-the-image-can-render-without-requiring-a-full-page-refresh",
+      "featureTitle": "Improve the frontend image component so that if an image previously failed to load and then becomes available (e.g., after re-render or after replacing the image), the error/fallback state resets and the image can render without requiring a full page refresh.",
       "files": [
-        "frontend/src/components/story/ImageUploadSection.tsx"
+        "frontend/src/components/story/PublicImage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,28 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-9"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-frontend-data-access-react-query-hook-to-fetch-the-caller-admin-status-from-the-backend-and-wire-it-into-the-image-upload-component-s-so-authorization-state-updates-correctly-after-login-logout",
-      "featureTitle": "Add frontend data access (React Query hook) to fetch the caller admin status from the backend and wire it into the image upload component(s) so authorization state updates correctly after login/logout.",
-      "files": [
-        "frontend/src/components/story/ImageUploadSection.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-10"
+        "REQ-17"
       ],
       "confidence": "high"
     }

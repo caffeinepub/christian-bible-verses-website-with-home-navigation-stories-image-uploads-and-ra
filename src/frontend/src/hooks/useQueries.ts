@@ -110,7 +110,7 @@ export function useAddStoryOrVerseImage() {
       index: bigint;
     }) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.addStoryOrVerseImage(blob, isStory, index);
+      return actor.uploadStoryOrVerseImage(blob, isStory, index);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['stories'] });
