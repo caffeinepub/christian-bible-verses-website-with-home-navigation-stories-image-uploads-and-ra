@@ -1,43 +1,39 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T20:12:22.192Z",
-  "summary": "Frontend change to PublicImage resets error state on URL change (matches REQ-17). Backend changes show introduction of a migration hook and inclusion of blob storage/authorization mixins, but the diff summary does not provide evidence that image/blob read access is now public for anonymous users or that existing stored images are made publicly readable after upgrade.",
+  "generatedAt": "2026-02-07T20:23:07.425Z",
+  "summary": "The diff adds a deployment guide document but does not show any concrete deployment/publish implementation or configuration changes that would update the production site to the latest draft build. There are also metadata/documentation summary updates not explicitly requested by REQ-18.",
   "missing_requirements": [
     {
-      "id": "REQ-15",
-      "requirement": "Update backend blob/image storage authorization so that any uploaded story/verse image is publicly readable by anyone (including anonymous/signed-out visitors), while keeping upload/replace strictly admin-only.",
-      "reason": "The provided backend/main.mo snippet is truncated before the image upload/read endpoints, and there is no explicit evidence in the diff summary that anonymous/public read access was enabled for stored blobs or that story/verse queries no longer require authentication for image URLs/metadata.",
+      "id": "REQ-18",
+      "requirement": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
+      "reason": "The diff only adds a deployment runbook/guide; it does not include any actual deploy action, CI/CD pipeline/config, environment/hosting configuration, or other changes that would perform or trigger a production publish. Acceptance criteria require the production site to be updated, which is not evidenced by documentation alone.",
       "evidence": [
-        "backend/main.mo (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "requirement": "Ensure previously uploaded image(s) already stored in the canister become publicly readable after the authorization change, without requiring the admin to re-upload; add a Motoko state migration only if necessary.",
-      "reason": "backend/migration.mo was added but the migration is a no-op (returns old state unchanged) and includes a comment that state is implicitly updated; there is no evidence of any actual state/permission update for existing images/blobs or proof that no migration is needed and existing blobs will become public after upgrade.",
-      "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo (truncated)"
+        "frontend/DEPLOYMENT.md",
+        "frontend-file-summaries.txt"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added a backend migration module and wired it into the canister upgrade path, but the migration function is a no-op.",
-      "reason": "The BuildRequest allows adding backend/migration.mo only if required to preserve previously uploaded images via state upgrade. The diff shows migration.mo was added regardless, but does not show any required state transformation being performed.",
+      "description": "Project metadata updated to describe product features (site theme, stories, image uploads, daily verse, etc.) unrelated to the operational publish/deploy request.",
+      "reason": "REQ-18 is an operational publish action with a constraint to avoid product feature changes; updating feature descriptions/records is not requested as part of deploying the current draft to production.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo (with migration = Migration.run)"
+        "project_state.json (truncated)"
+      ]
+    },
+    {
+      "description": "Frontend feature inventory/summary updated to include many UI/auth/image upload/route details beyond deployment documentation.",
+      "reason": "REQ-18 only asks to publish the current draft to production; changing/refreshing a broad frontend file summary is not requested by the deploy requirement and may violate the constraint to avoid unrelated product changes.",
+      "evidence": [
+        "frontend-file-summaries.txt"
       ]
     }
   ],
-  "confidence": 0.62,
+  "confidence": 0.66,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/story/PublicImage.tsx",
+    "frontend/DEPLOYMENT.md",
     "project_state.json"
   ]
 }

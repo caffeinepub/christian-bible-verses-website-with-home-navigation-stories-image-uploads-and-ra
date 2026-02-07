@@ -10,10 +10,7 @@ import AccessControl "authorization/access-control";
 import Principal "mo:core/Principal";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
-import Migration "migration";
 
-// specify the data migration function in with-clause
-(with migration = Migration.run)
 actor {
   // Include components
   let accessControlState = AccessControl.initState();
@@ -133,7 +130,7 @@ actor {
     };
   };
 
-  // Upload Story or Verse Image (Admin Only) - Now Publicly Viewable
+  // Upload Story or Verse Image (Admin Only)
   public shared ({ caller }) func uploadStoryOrVerseImage(blob : Storage.ExternalBlob, isStory : Bool, index : Nat) : async () {
     if (not AccessControl.isAdmin(accessControlState, caller)) {
       Runtime.trap("Unauthorized: Only admin can upload images");

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ExternalBlob } from '../../backend';
 import { AlertCircle } from 'lucide-react';
 
@@ -10,12 +10,6 @@ interface PublicImageProps {
 
 export default function PublicImage({ image, alt, className = '' }: PublicImageProps) {
   const [hasError, setHasError] = useState(false);
-  const imageUrl = image.getDirectURL();
-
-  // Reset error state when the image URL changes
-  useEffect(() => {
-    setHasError(false);
-  }, [imageUrl]);
 
   if (hasError) {
     return (
@@ -30,7 +24,7 @@ export default function PublicImage({ image, alt, className = '' }: PublicImageP
 
   return (
     <img
-      src={imageUrl}
+      src={image.getDirectURL()}
       alt={alt}
       className={className}
       onError={() => setHasError(true)}

@@ -1,21 +1,20 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Reset PublicImage error state when image changes",
+  "title": "Production publish (deploy) instructions for current draft build",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Reset the PublicImage fallback/error state when the provided image changes so newly available images render without a full refresh.",
+      "id": "REQ-18",
+      "summary": "Document and standardize the steps to publish the current draft build to the production site without changing product features.",
       "acceptanceCriteria": [
-        "When the `image` prop passed to `frontend/src/components/story/PublicImage.tsx` changes, the component clears any prior error state and attempts to load the new URL.",
-        "After the backend visibility fix, navigating away and back (or otherwise causing a re-render) allows the previously failing image to display instead of remaining stuck on the fallback UI.",
-        "All user-facing fallback text remains in English (e.g., current 'Image failed to load')."
+        "The production (live) site is updated to the most recent draft build.",
+        "After deployment completes, visiting the production site shows the same behavior/content as the latest draft."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/story/PublicImage.tsx",
-          "operation": "modify",
-          "description": "Update the image rendering logic to reset `hasError` when the `image` prop (or its derived direct URL via the blob-storage `ExternalBlob.getDirectURL()` capability) changes, so a previously failed image can retry and render on subsequent renders without a full page refresh. Verify the component's usage instructions before implementing."
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "create",
+          "description": "Add a concise, operator-focused deployment runbook describing how to publish the current draft build to production, including: prerequisites, build step, publish step, rollback guidance, and a post-deploy verification checklist aligning with the acceptance criteria. Reference the selected github-export-icp-cli template/scripts as the intended deployment mechanism where applicable; verify the component's usage instructions before implementing."
         }
       ]
     }

@@ -1,74 +1,32 @@
 {
   "kind": "build_request",
-  "title": "Fix uploaded story/verse image visibility so it loads for everyone (including signed-out visitors)",
+  "title": "Publish the current draft version to production",
   "priority": "high",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Update backend blob/image storage authorization so that any uploaded story/verse image is publicly readable by anyone (including anonymous/signed-out visitors), while keeping upload/replace strictly admin-only.",
-      "target": "backend",
+      "id": "REQ-18",
+      "text": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
+      "target": "unknown",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-8"
         ],
         "quotes": [
-          "I want it to show for all people and even if they are signed out.",
-          "it shows a fallback message"
+          "Do it now."
         ]
       },
       "acceptanceCriteria": [
-        "After an admin uploads an image, the image can be fetched via its direct URL by a logged-out visitor (no Internet Identity session) without 403/401 errors.",
-        "Non-admin callers are still rejected by the backend if they attempt to upload/replace images (admin-only enforcement remains intact).",
-        "No backend query that returns stories/verses requires authentication just to view image metadata/URLs."
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "text": "Ensure previously uploaded image(s) already stored in the canister become publicly readable after the authorization change, without requiring the admin to re-upload; add a Motoko state migration only if necessary to update existing stored blob permissions/metadata.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "it is just the image I uploaded.",
-          "Now it doesn’t show at all, not even for me."
-        ]
-      },
-      "acceptanceCriteria": [
-        "The specific previously uploaded image that currently triggers the frontend fallback (“Image failed to load”) becomes viewable after upgrade, for both admin and logged-out visitors, without re-uploading.",
-        "If a migration is needed, it runs safely on upgrade and does not wipe or break existing stories/verses data.",
-        "If a migration is not needed, document/confirm in code by leaving migration.mo absent and ensuring the fix still applies to already-uploaded blobs."
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "text": "Improve the frontend image component so that if an image previously failed to load and then becomes available (e.g., after re-render or after replacing the image), the error/fallback state resets and the image can render without requiring a full page refresh.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "it shows a fallback message"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When the `image` prop passed to `frontend/src/components/story/PublicImage.tsx` changes, the component clears any prior error state and attempts to load the new URL.",
-        "After the backend visibility fix, navigating away and back (or otherwise causing a re-render) allows the previously failing image to display instead of remaining stuck on the fallback UI.",
-        "All user-facing fallback text remains in English (e.g., current 'Image failed to load')."
+        "The production (live) site is updated to the most recent draft build.",
+        "After deployment completes, visiting the production site shows the same behavior/content as the latest draft."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain single-actor; keep all Motoko logic in backend/main.mo.",
-    "Only introduce backend/migration.mo if required to upgrade existing stable state to preserve previously uploaded images.",
-    "Do not edit frontend files under frontend/src/components/ui, frontend/src/hooks/useInternetIdentity.ts/tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx (immutable paths)."
+    "This request is an operational deploy/publish action; do not introduce product feature changes unless required to complete the publish step."
   ],
   "nonGoals": [
-    "Changing which stories/verses are included or their text content.",
-    "Adding new authentication providers beyond Internet Identity.",
-    "Changing the admin-only upload UI behavior (it should remain hidden for non-admin users)."
+    "Adding new app features unrelated to publishing/deployment.",
+    "Changing backend authorization, storage, or image behavior as part of this request."
   ],
   "imageRequirements": {
     "required": [],

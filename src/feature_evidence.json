@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-improve-the-frontend-image-component-so-that-if-an-image-previously-failed-to-load-and-then-becomes-available-e-g-after-re-render-or-after-replacing-the-image-the-error-fallback-state-resets-and-the-image-can-render-without-requiring-a-full-page-refresh",
-      "featureTitle": "Improve the frontend image component so that if an image previously failed to load and then becomes available (e.g., after re-render or after replacing the image), the error/fallback state resets and the image can render without requiring a full page refresh.",
+      "featureId": "feature-publish-deploy-the-current-draft-build-to-the-production-site-so-that-the-live-site-reflects-the-latest-draft-version",
+      "featureTitle": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
       "files": [
-        "frontend/src/components/story/PublicImage.tsx"
+        "frontend/DEPLOYMENT.md"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,7 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-18"
       ],
       "confidence": "high"
     }

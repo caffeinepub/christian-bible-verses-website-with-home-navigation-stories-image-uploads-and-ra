@@ -1,16 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 11,
+  "projectStateVersion": 13,
   "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a starter set of common Bible stories chosen by the assistant, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
   "architectural_notes": [
     "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side.",
     "Add site favicon/app icon assets (including a circular-cropped version from the provided image) and reference them in the site head/manifest as needed.",
     "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication."
   ],
-  "known_issues": [
-    "Previously uploaded image(s) are not loading for anyone (including the admin); UI shows the fallback message (image fails to load)."
-  ],
-  "isFixRequest": true,
+  "known_issues": [],
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-create-a-home-screen-that-presents-navigation-options-for-old-testament-new-testament-daily-verse-and-stories",
@@ -97,6 +95,14 @@
       "title": "Improve the frontend image component so that if an image previously failed to load and then becomes available (e.g., after re-render or after replacing the image), the error/fallback state resets and the image can render without requiring a full page refresh.",
       "reqIds": [
         "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-publish-deploy-the-current-draft-build-to-the-production-site-so-that-the-live-site-reflects-the-latest-draft-version",
+      "title": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
+      "reqIds": [
+        "REQ-18"
       ],
       "version": 1
     }
