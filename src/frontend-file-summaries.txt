@@ -7,7 +7,7 @@
   "frontend/src/components/auth/ProfileSetupDialog.tsx": "Modal dialog that appears on first login to collect user's display name, preventing modal flash by checking profile loading state before showing.",
   "frontend/src/pages/HomePage.tsx": "Landing page displaying four navigation cards (Daily Verse, Bible Stories, Old Testament, New Testament) with icons, descriptions, and gradient backgrounds in the Christian theme.",
   "frontend/src/pages/StoriesPage.tsx": "Stories list page fetching and displaying all Bible stories from backend in a grid of clickable cards showing title, summary, and verse count; now includes an explicit empty-state message when the stories array is empty.",
-  "frontend/src/pages/StoryDetailPage.tsx": "Story detail view showing title, summary, key verses with references and text, plus authenticated image upload section for the story.",
+  "frontend/src/pages/StoryDetailPage.tsx": "Story detail view showing title, image upload section, narrative Scripture verses (without quotes), and summary at the bottom; maintains existing admin-only image upload behavior.",
   "frontend/src/pages/DailyVersePage.tsx": "Daily verse page displaying today's randomly selected verse with reference, text in blockquote format, current date, and manual refresh button.",
   "frontend/src/pages/TestamentPage.tsx": "Reusable testament browsing page (Old/New) displaying filtered verses in a grid of cards with references and text previews, linking to verse detail.",
   "frontend/src/pages/VerseDetailPage.tsx": "Verse detail view showing reference, full text in blockquote format, testament label, and optional uploaded image rendered with PublicImage component for graceful error handling.",

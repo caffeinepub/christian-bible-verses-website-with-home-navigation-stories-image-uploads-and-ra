@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Ensure the Stories tab reliably shows Bible stories (not an empty list) on fresh installs and after upgrades, and clearly communicates when no stories are available.
+**Goal:** Expand Bible Stories and Daily Verse content to King James Version (KJV), and present story pages as narrative scripture followed by a summary at the bottom.
 
 **Planned changes:**
-- Seed the backend’s initial stories dataset so `getStories()` returns a non-empty list on a fresh install (each story includes `title`, `summary`, and at least 1 verse with reference + text).
-- Update canister upgrade/migration logic to preserve existing persisted stories across upgrades, and seed the starter set during upgrade if the persisted stories array is currently empty.
-- Update the Stories page UI to display a clear English empty-state message when `getStories()` succeeds but returns an empty array.
+- Update the backend Stories dataset to include a non-empty set of major Bible stories using KJV text, with each story including only narrative verses (not full chapter ranges or non-narrative sections), while keeping existing story fields compatible with the current frontend.
+- Update the backend curated Daily Verse set so all daily verse texts are KJV wording.
+- Update the Story detail UI to display the narrative verse text as the primary story content and move the summary to the bottom; remove/replace any “Key Verses” labeling with a narrative-appropriate label, without changing story image upload/view behavior.
 
-**User-visible outcome:** The Stories tab shows story cards by default on new deployments and remains populated after upgrades; if no stories exist, users see a clear empty-state message instead of a header-only page.
+**User-visible outcome:** Users can browse Story details that read like continuous KJV narrative scripture with the story summary shown at the end, and Daily Verses consistently display KJV wording.

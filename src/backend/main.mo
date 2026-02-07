@@ -63,44 +63,86 @@ actor {
     image : ?Storage.ExternalBlob;
   };
 
-  // Initialize stories with entries.
   let initialStories : [Story] = [
     {
       title = "Creation";
       summary = "God creates the heavens and the Earth.";
       verses = [
         {
-          reference = "Genesis 1:1";
-          text = "In the beginning God created the heavens and the earth.";
+          reference = "Genesis 1:1-3";
+          text = "In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light. (KJV)";
           testament = #old;
           image = null;
-        }
+        },
+        {
+          reference = "Genesis 1:26-27";
+          text = "And God said, Let us make man in our image, after our likeness... So God created man in his own image, in the image of God created he him; male and female created he them. (KJV)";
+          testament = #old;
+          image = null;
+        },
       ];
       image = null;
     },
     {
-      title = "Moses and Exodus";
+      title = "Noah's Ark";
+      summary = "Noah builds an ark to survive the great flood.";
+      verses = [
+        {
+          reference = "Genesis 6:13-14";
+          text = "And God said unto Noah... Make thee an ark of gopher wood; rooms shalt thou make in the ark. (KJV)";
+          testament = #old;
+          image = null;
+        },
+        {
+          reference = "Genesis 7:1";
+          text = "And the LORD said unto Noah, Come thou and all thy house into the ark... (KJV)";
+          testament = #old;
+          image = null;
+        },
+        {
+          reference = "Genesis 8:1";
+          text = "And God remembered Noah, and every living thing, and all the cattle that was with him in the ark: and God made a wind to pass over the earth, and the waters assuaged. (KJV)";
+          testament = #old;
+          image = null;
+        },
+      ];
+      image = null;
+    },
+    {
+      title = "Moses and the Exodus";
       summary = "Moses leads the Israelites out of Egypt.";
       verses = [
         {
-          reference = "Exodus 14:21";
-          text = "Moses stretched out his hand over the sea, and the LORD drove the sea back with a strong east wind.";
+          reference = "Exodus 14:21-22";
+          text = "And Moses stretched out his hand over the sea... and the LORD caused the sea to go back by a strong east wind... And the children of Israel went into the midst of the sea upon the dry ground. (KJV)";
           testament = #old;
           image = null;
-        }
+        },
+        {
+          reference = "Exodus 14:28";
+          text = "And the waters returned, and covered the chariots, and the horsemen, and all the host of Pharaoh... (KJV)";
+          testament = #old;
+          image = null;
+        },
       ];
       image = null;
     },
     {
-      title = "Jesus Walks on Water";
-      summary = "Jesus walks on water, demonstrating his divinity to the disciples.";
+      title = "The Birth of Jesus";
+      summary = "The miraculous birth of Jesus Christ.";
       verses = [
         {
-          reference = "Matthew 14:25";
-          text = "Shortly before dawn Jesus went out to them, walking on the lake.";
+          reference = "Luke 2:6-7";
+          text = "And so it was, that, while they were there, the days were accomplished that she should be delivered. And she brought forth her firstborn son, and wrapped him in swaddling clothes, and laid him in a manger... (KJV)";
           testament = #new;
           image = null;
-        }
+        },
+        {
+          reference = "Matthew 2:1-2";
+          text = "Now when Jesus was born in Bethlehem of Judaea in the days of Herod the king... behold, there came wise men from the east to Jerusalem, Saying, Where is he that is born King of the Jews?... (KJV)";
+          testament = #new;
+          image = null;
+        },
       ];
       image = null;
     },
@@ -132,7 +174,6 @@ actor {
       if (updatedVerses.size() > 0) {
         let firstVerse = story.verses[0];
         updatedVerses[0] := { firstVerse with image = ?blob };
-        story := { story with verses = updatedVerses.toArray() };
         updatedStories[index] := story;
       };
     };
@@ -156,31 +197,31 @@ actor {
     let curatedVerses = [
       {
         reference = "John 3:16";
-        text = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.";
+        text = "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life. (KJV)";
         testament = #new;
         image = null;
       },
       {
         reference = "Philippians 4:13";
-        text = "I can do all things through Christ who strengthens me.";
+        text = "I can do all things through Christ which strengtheneth me. (KJV)";
         testament = #new;
         image = null;
       },
       {
         reference = "Psalm 23:1";
-        text = "The Lord is my shepherd, I shall not want.";
+        text = "The LORD is my shepherd; I shall not want. (KJV)";
         testament = #old;
         image = null;
       },
       {
         reference = "Romans 8:28";
-        text = "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.";
+        text = "And we know that all things work together for good to them that love God, to them who are the called according to his purpose. (KJV)";
         testament = #new;
         image = null;
       },
       {
         reference = "Joshua 1:9";
-        text = "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.";
+        text = "Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest. (KJV)";
         testament = #old;
         image = null;
       },
@@ -198,4 +239,3 @@ actor {
     AccessControl.isAdmin(accessControlState, caller);
   };
 };
-

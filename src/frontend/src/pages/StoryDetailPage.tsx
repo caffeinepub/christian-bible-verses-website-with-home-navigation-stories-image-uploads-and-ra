@@ -75,9 +75,6 @@ export default function StoryDetailPage() {
             <CardTitle className="font-serif text-3xl mb-4">
               {story.title}
             </CardTitle>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {story.summary}
-            </p>
           </CardHeader>
           <CardContent className="space-y-6">
             <ImageUploadSection
@@ -90,19 +87,28 @@ export default function StoryDetailPage() {
             <Separator />
 
             <div>
-              <h3 className="font-serif text-xl font-semibold mb-4">Key Verses</h3>
-              <div className="space-y-4">
+              <h3 className="font-serif text-xl font-semibold mb-4">Scripture</h3>
+              <div className="space-y-6">
                 {story.verses.map((verse, idx) => (
-                  <div key={idx} className="bg-muted/30 rounded-lg p-4 border border-border/50">
-                    <p className="text-sm font-medium text-primary mb-2">
+                  <div key={idx} className="space-y-2">
+                    <p className="text-sm font-medium text-primary">
                       {verse.reference}
                     </p>
-                    <p className="verse-text text-foreground">
-                      "{verse.text}"
+                    <p className="verse-text text-foreground leading-relaxed">
+                      {verse.text}
                     </p>
                   </div>
                 ))}
               </div>
+            </div>
+
+            <Separator />
+
+            <div>
+              <h3 className="font-serif text-xl font-semibold mb-3">Summary</h3>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {story.summary}
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -110,4 +116,3 @@ export default function StoryDetailPage() {
     </div>
   );
 }
-

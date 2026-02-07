@@ -1,16 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 19,
-  "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a starter set of common Bible stories chosen by the assistant, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
+  "projectStateVersion": 21,
+  "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a Stories section expanded to include all major Bible stories using King James Version (KJV) text with narrative verses (story text) and a summary at the bottom, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
   "architectural_notes": [
     "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side.",
     "Add site favicon/app icon assets (including a circular-cropped version from the provided image) and reference them in the site head/manifest as needed.",
-    "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication."
+    "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication.",
+    "Stories content source/format decision: use King James Version (KJV) text; include narrative verses for each story and display a summary at the bottom of the story."
   ],
   "known_issues": [
     "Bug: Stories tab/page renders only the top/header message and does not display the list of Bible stories; occurs on both draft and production (other tabs work)."
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-create-a-home-screen-that-presents-navigation-options-for-old-testament-new-testament-daily-verse-and-stories",
@@ -121,6 +122,14 @@
       "title": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
       "reqIds": [
         "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-story-detail-ui-to-present-the-story-as-narrative-verse-text-followed-by-a-summary-at-the-bottom-instead-of-showing-the-summary-near-the-top-and-labeling-verses-as-key-verses",
+      "title": "Update the Story detail UI to present the story as narrative verse text followed by a summary at the bottom (instead of showing the summary near the top and labeling verses as \"Key Verses\").",
+      "reqIds": [
+        "REQ-26"
       ],
       "version": 1
     }
@@ -249,6 +258,28 @@
       "summary": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
       "reqIds": [
         "REQ-22"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Expand the Stories content to include all major Bible stories using KJV text: for each story include the narrative verses (full story text) and add a summary at the bottom.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Update the backend Stories dataset so Stories use King James Version (KJV) text and include all major Bible stories, where each story contains only the verses that carry the narrative (i.e., the story text) rather than every verse in the surrounding chapters.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Update the backend Daily Verse curated set so all daily verse texts are in King James Version (KJV) wording.",
+      "reqIds": [
+        "REQ-25"
       ],
       "status": "pending"
     }

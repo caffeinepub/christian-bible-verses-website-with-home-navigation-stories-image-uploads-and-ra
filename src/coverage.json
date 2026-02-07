@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T22:07:38.141Z",
+  "generatedAt": "2026-02-07T22:36:42.436Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,28 +11,28 @@
     "implemented": 1,
     "items": [
       {
-        "id": "REQ-21",
-        "summary": "Fix the backend so the Stories list is not empty by default: populate the backend’s initial stories dataset (the `initialStories` value used to initialize `stories`) with a basic starter set of Bible stories so that `getStories()` returns a non-empty array on a fresh install.",
+        "id": "REQ-24",
+        "summary": "Update the backend Stories dataset so Stories use King James Version (KJV) text and include all major Bible stories, where each story contains only the verses that carry the narrative (i.e., the story text) rather than every verse in the surrounding chapters.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-22",
-        "summary": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
+        "id": "REQ-25",
+        "summary": "Update the backend Daily Verse curated set so all daily verse texts are in King James Version (KJV) wording.",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-23",
-        "summary": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+        "id": "REQ-26",
+        "summary": "Update the Story detail UI to present the story as narrative verse text followed by a summary at the bottom (instead of showing the summary near the top and labeling verses as \"Key Verses\").",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/StoriesPage.tsx"
+          "frontend/src/pages/StoryDetailPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/StoriesPage.tsx"
+          "frontend/src/pages/StoryDetailPage.tsx"
         ]
       }
     ]
@@ -43,7 +43,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/StoriesPage.tsx",
+    "frontend/src/pages/StoryDetailPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

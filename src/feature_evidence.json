@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-stories-page-ui-to-handle-an-empty-stories-array-explicitly-when-getstories-succeeds-but-returns-an-empty-list-show-a-clear-english-empty-state-message-instead-of-rendering-an-empty-grid-header-only-appearance",
-      "featureTitle": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+      "featureId": "feature-update-the-story-detail-ui-to-present-the-story-as-narrative-verse-text-followed-by-a-summary-at-the-bottom-instead-of-showing-the-summary-near-the-top-and-labeling-verses-as-key-verses",
+      "featureTitle": "Update the Story detail UI to present the story as narrative verse text followed by a summary at the bottom (instead of showing the summary near the top and labeling verses as \"Key Verses\").",
       "files": [
-        "frontend/src/pages/StoriesPage.tsx"
+        "frontend/src/pages/StoryDetailPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,7 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-23"
+        "REQ-26"
       ],
       "confidence": "high"
     }

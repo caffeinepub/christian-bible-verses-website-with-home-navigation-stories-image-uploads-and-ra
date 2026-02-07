@@ -1,21 +1,22 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Stories page empty-state messaging when stories list is empty",
+  "title": "Story detail narrative-first reading experience with summary at bottom",
   "requirements": [
     {
-      "id": "REQ-23",
-      "summary": "Show a clear English empty-state message on the Stories page when the stories query succeeds but returns an empty array.",
+      "id": "REQ-26",
+      "summary": "Reorder Story detail content to show narrative verse text first and the story summary at the bottom, removing the 'Key Verses' framing while keeping image view/upload unchanged.",
       "acceptanceCriteria": [
-        "When useGetStories() returns [] (no error), the Stories page displays an English empty-state message (e.g., \"No stories are available right now.\") within the page content area.",
-        "When useGetStories() returns a non-empty array, the Stories page renders the story card grid as before.",
-        "The empty-state message does not expose any admin-only upload controls."
+        "On the Story detail page, the verse list is presented as the story text (narrative verses) and is clearly readable as a continuous story experience.",
+        "The story summary is displayed after the narrative verse text (at the bottom of the page content).",
+        "Any user-facing heading/label that implies the verses are only \"Key Verses\" is removed or replaced with an English label that reflects narrative story text (e.g., \"Story\" / \"Scripture\" / \"Story Text\").",
+        "Story image display/upload behavior remains unchanged (admin can upload/replace; non-admins can view only)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/StoriesPage.tsx",
+          "path": "frontend/src/pages/StoryDetailPage.tsx",
           "operation": "modify",
-          "description": "Add an explicit empty-state branch (when stories is defined and stories.length === 0) that renders a clear English message within the page content area, and only render the story card grid when the list is non-empty."
+          "description": "Update the Story detail layout to (1) keep the existing title and image section intact (including the current admin-only ImageUploadSection behavior), (2) replace the \"Key Verses\" heading with an English narrative label (e.g., \"Story Text\" / \"Scripture\"), (3) render verses as continuous narrative reading text (remove quote marks and avoid card-per-verse styling that suggests highlights-only), and (4) move the story.summary block to the bottom after the verses (optionally under a \"Summary\" heading). Ensure existing image rendering continues to use the current ExternalBlob direct URL approach (blob-storage) via the existing components; verify the component's usage instructions before implementing."
         }
       ]
     }

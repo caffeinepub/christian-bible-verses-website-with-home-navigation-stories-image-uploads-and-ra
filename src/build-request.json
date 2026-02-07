@@ -1,74 +1,76 @@
 {
   "kind": "build_request",
-  "title": "Fix Stories tab showing header only (stories list empty) on both draft and production",
-  "priority": "high",
+  "title": "Expand Stories content to KJV major Bible stories with narrative verses and summary at the bottom",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-21",
-      "text": "Fix the backend so the Stories list is not empty by default: populate the backend’s initial stories dataset (the `initialStories` value used to initialize `stories`) with a basic starter set of Bible stories so that `getStories()` returns a non-empty array on a fresh install.",
+      "id": "REQ-24",
+      "text": "Update the backend Stories dataset so Stories use King James Version (KJV) text and include all major Bible stories, where each story contains only the verses that carry the narrative (i.e., the story text) rather than every verse in the surrounding chapters.",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Good. But it doesn’t show the bible stories tab when I click on it.",
-          "It just doesn’t show the stories but it shows the top message."
+          "I think you should use the King James Version.",
+          "All the major bible verses.",
+          "Only the verses that contain the narrative."
         ]
       },
       "acceptanceCriteria": [
-        "On a fresh/local deployment with no prior state, calling the backend `getStories()` returns an array with at least 1 story.",
-        "Each returned story includes: `title`, `summary`, and `verses` with at least 1 verse (reference + text).",
-        "The Stories page UI has story cards to render (i.e., the list is non-empty) without requiring any user action."
+        "On a fresh install, `getStories()` returns a non-empty list representing major Bible stories (not just a small starter set).",
+        "For each returned story, verse `text` is KJV wording (no modern paraphrase/NIV/ESV phrasing).",
+        "For each story, the `verses` list contains narrative verses only (not \"all verses\" in long ranges, genealogies, or non-narrative sections) consistent with the user request.",
+        "Existing Story fields (`title`, `summary`, `verses`, `image`) remain present and compatible with the current frontend."
       ]
     },
     {
-      "id": "REQ-22",
-      "text": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
+      "id": "REQ-25",
+      "text": "Update the backend Daily Verse curated set so all daily verse texts are in King James Version (KJV) wording.",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Yes it happens on both"
+          "I think you should use the King James Version."
         ]
       },
       "acceptanceCriteria": [
-        "Upgrading the canister preserves an existing non-empty stories array (no reset to empty).",
-        "Upgrading a canister whose persisted stories array is empty results in a non-empty stories array seeded with the starter set after the upgrade completes.",
-        "After the upgrade, `getStories()` returns the expected non-empty list on both draft and production deployments."
+        "`getDailyVerse()` always returns verses with KJV text (e.g., John 3:16 uses \"For God so loved the world, that he gave his only begotten Son...\").",
+        "No Daily Verse entry contains non-KJV phrasing currently present in the curated list."
       ]
     },
     {
-      "id": "REQ-23",
-      "text": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+      "id": "REQ-26",
+      "text": "Update the Story detail UI to present the story as narrative verse text followed by a summary at the bottom (instead of showing the summary near the top and labeling verses as \"Key Verses\").",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "It just doesn’t show the stories but it shows the top message."
+          "Provide the actual story from the bible, then a summary at the bottom.",
+          "Only the verses that contain the narrative."
         ]
       },
       "acceptanceCriteria": [
-        "When `useGetStories()` returns `[]` (no error), the Stories page displays an English empty-state message (e.g., \"No stories are available right now.\") within the page content area.",
-        "When `useGetStories()` returns a non-empty array, the Stories page renders the story card grid as before.",
-        "The empty-state message does not expose any admin-only upload controls."
+        "On the Story detail page, the verse list is presented as the story text (narrative verses) and is clearly readable as a continuous story experience.",
+        "The story summary is displayed after the narrative verse text (at the bottom of the page content).",
+        "Any user-facing heading/label that implies the verses are only \"Key Verses\" is removed or replaced with an English label that reflects narrative story text (e.g., \"Story\" / \"Scripture\" / \"Story Text\").",
+        "Story image display/upload behavior remains unchanged (admin can upload/replace; non-admins can view only)."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor with all logic in backend/main.mo (single-actor architecture).",
-    "Do not edit frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, and anything under frontend/src/components/ui.",
-    "Use English for any user-facing text."
+    "Backend must remain a single Motoko actor in `backend/main.mo` (no additional backend services).",
+    "Do not modify files under `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, or `frontend/src/components/ui` (compose existing components instead).",
+    "Use English for all user-facing UI text."
   ],
   "nonGoals": [
-    "Do not add new navigation tabs or change the overall routing structure.",
-    "Do not change authentication (Internet Identity) behavior.",
-    "Do not add external databases or third-party services.",
-    "Do not redesign the visual theme (only address the Stories tab not showing stories / empty-state clarity)."
+    "Do not implement a complete, fully comprehensive verse-by-verse Bible database covering every verse in the Bible.",
+    "Do not add third-party Bible text API integrations or external databases.",
+    "Do not change authentication approach (Internet Identity remains the only auth mechanism)."
   ],
   "imageRequirements": {
     "required": [],

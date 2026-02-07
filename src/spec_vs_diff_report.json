@@ -1,40 +1,32 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T22:07:38.138Z",
-  "summary": "REQ-21 and REQ-23 appear implemented: backend `initialStories` is now seeded with multiple starter stories (each with title, summary, and at least one verse), and the Stories page now shows an explicit English empty-state message when the stories array is empty. REQ-22 (upgrade/migration preservation/seeding) is not evidenced in the provided diff summary.",
+  "generatedAt": "2026-02-07T22:36:42.433Z",
+  "summary": "REQ-26 appears implemented in the Story detail UI (verses presented under a \"Scripture\" heading and the Summary moved to the bottom). Backend KJV story expansion (REQ-24) is only partially evidenced (a few KJV-tagged stories shown; not enough evidence of \"all major Bible stories\"), and there is no visible evidence that the Daily Verse curated set was updated to KJV (REQ-25).",
   "missing_requirements": [
     {
-      "id": "REQ-22",
-      "requirement": "Ensure upgrades do not wipe out stories: implement/adjust canister state upgrade/migration logic so persisted stories are preserved across upgrades; if persisted stories array is empty, seed it with the starter set during migration/upgrade.",
-      "reason": "The diff summary shows seeding via `initialStories` and setting `var stories : [Story] = initialStories;` but does not show any upgrade hooks (e.g., preupgrade/postupgrade) or changes to a migration file/state preservation logic. No migration-related file is modified in the listed changes.",
+      "id": "REQ-24",
+      "requirement": "Update the backend Stories dataset so Stories use King James Version (KJV) text and include all major Bible stories, with narrative verses only.",
+      "reason": "The diff excerpt of `initialStories` shows only a small handful of stories (e.g., \"Creation\", \"Noah's Ark\", \"Moses and the Exodus\"), and the file is truncated, so there is insufficient evidence that the dataset was expanded to include \"all major Bible stories\". Also, multiple verse texts contain ellipses (\"...\"), which makes it unclear that the stored text is complete KJV verse wording.",
       "evidence": [
-        "backend/main.mo (truncated) — shows `initialStories` and `var stories : [Story] = initialStories;` but no visible upgrade/migration handling in provided excerpt",
-        "File diff summary — only modified files listed: backend/main.mo, frontend/src/pages/StoriesPage.tsx, frontend-file-summaries.txt, project_state.json (no migration file changes shown)"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Updated project metadata/state summary (project_state.json) unrelated to requested fix.",
-      "reason": "BuildRequest does not request updating project tracking metadata; only functional fixes for stories seeding, upgrade migration, and Stories page empty-state behavior.",
-      "evidence": [
-        "project_state.json (truncated)"
+        "backend/main.mo"
       ]
     },
     {
-      "description": "Updated/added a generated frontend file summaries document entry describing many components and changes beyond the requested Stories tab fix.",
-      "reason": "BuildRequest does not request maintaining or updating a summaries document; only backend seeding, upgrade migration, and Stories page empty-state behavior.",
+      "id": "REQ-25",
+      "requirement": "Update the backend Daily Verse curated set so all daily verse texts are in King James Version (KJV) wording.",
+      "reason": "The provided diff excerpt for `backend/main.mo` shows story dataset changes but does not show the Daily Verse curated set or any updates to daily verse text content; due to truncation, there is no concrete evidence that all daily verses were converted to KJV.",
       "evidence": [
-        "frontend-file-summaries.txt (truncated)"
+        "backend/main.mo"
       ]
     }
   ],
-  "confidence": 0.74,
+  "hallucinated_features": [],
+  "confidence": 0.62,
   "changed_files": [
     "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/pages/StoriesPage.tsx",
+    "frontend/src/pages/StoryDetailPage.tsx",
     "project_state.json"
   ]
 }
