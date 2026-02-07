@@ -1,21 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Production rollback verification (Version 6 → Version 5)",
+  "title": "Stories page empty-state messaging when stories list is empty",
   "requirements": [
     {
-      "id": "REQ-19",
-      "summary": "Roll back the live production deployment to the previously deployed Version 5 build without changing the draft/codebase, and verify core pages load signed-out.",
+      "id": "REQ-23",
+      "summary": "Show a clear English empty-state message on the Stories page when the stories query succeeds but returns an empty array.",
       "acceptanceCriteria": [
-        "The public production URL serves the Version 5 build (not Version 6).",
-        "No code changes are introduced as part of the rollback; only the production deployment target changes.",
-        "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session."
+        "When useGetStories() returns [] (no error), the Stories page displays an English empty-state message (e.g., \"No stories are available right now.\") within the page content area.",
+        "When useGetStories() returns a non-empty array, the Stories page renders the story card grid as before.",
+        "The empty-state message does not expose any admin-only upload controls."
       ],
       "file_operations": [
         {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/pages/StoriesPage.tsx",
           "operation": "modify",
-          "description": "Operational-only: follow the existing documented deployment/production procedures in this file to perform the production rollback to Version 5. Do not commit any edits to this file or any other source/assets as part of the rollback request; use it strictly as the runbook and perform post-rollback signed-out smoke checks for Home, Daily Verse, Stories, and Testament pages against the public production URL."
+          "description": "Add an explicit empty-state branch (when stories is defined and stories.length === 0) that renders a clear English message within the page content area, and only render the story card grid when the list is non-empty."
         }
       ]
     }

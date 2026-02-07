@@ -1,13 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 19,
   "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a starter set of common Bible stories chosen by the assistant, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
   "architectural_notes": [
     "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side.",
     "Add site favicon/app icon assets (including a circular-cropped version from the provided image) and reference them in the site head/manifest as needed.",
     "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication."
   ],
-  "known_issues": [],
+  "known_issues": [
+    "Bug: Stories tab/page renders only the top/header message and does not display the list of Bible stories; occurs on both draft and production (other tabs work)."
+  ],
   "isFixRequest": true,
   "existing_features": [
     {
@@ -103,6 +105,22 @@
       "title": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
       "reqIds": [
         "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-publish-deploy-the-current-draft-build-as-the-new-live-production-version-so-the-live-site-reflects-the-latest-draft-version",
+      "title": "Publish (deploy) the current draft build as the new live production version so the live site reflects the latest draft version.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-stories-page-ui-to-handle-an-empty-stories-array-explicitly-when-getstories-succeeds-but-returns-an-empty-list-show-a-clear-english-empty-state-message-instead-of-rendering-an-empty-grid-header-only-appearance",
+      "title": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+      "reqIds": [
+        "REQ-23"
       ],
       "version": 1
     }
@@ -215,6 +233,22 @@
       "summary": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
       "reqIds": [
         "REQ-19"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Fix the backend so the Stories list is not empty by default: populate the backend’s initial stories dataset (the `initialStories` value used to initialize `stories`) with a basic starter set of Bible stories so that `getStories()` returns a non-empty array on a fresh install.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
+      "reqIds": [
+        "REQ-22"
       ],
       "status": "pending"
     }

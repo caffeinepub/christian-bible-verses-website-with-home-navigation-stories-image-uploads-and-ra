@@ -1,30 +1,49 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T20:29:41.581Z",
+  "generatedAt": "2026-02-07T22:07:38.141Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 0,
+    "total": 3,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-19",
-        "summary": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/DEPLOYMENT.md"
-        ],
+        "id": "REQ-21",
+        "summary": "Fix the backend so the Stories list is not empty by default: populate the backend’s initial stories dataset (the `initialStories` value used to initialize `stories`) with a basic starter set of Bible stories so that `getStories()` returns a non-empty array on a fresh install.",
+        "status": "unknown",
+        "plannedFiles": [],
         "matchedFiles": []
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/StoriesPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/StoriesPage.tsx"
+        ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
+    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/pages/StoriesPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

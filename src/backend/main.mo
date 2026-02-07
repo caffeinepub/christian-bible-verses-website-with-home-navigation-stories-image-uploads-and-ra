@@ -63,60 +63,44 @@ actor {
     image : ?Storage.ExternalBlob;
   };
 
-  // Example initial stories
-  let initialStories = [
+  // Initialize stories with entries.
+  let initialStories : [Story] = [
     {
       title = "Creation";
-      summary = "God creates the heavens and the earth";
-      verses = [{
-        reference = "Genesis 1:1";
-        text = "In the beginning God created the heavens and the earth.";
-        testament = #old;
-        image = null;
-      }];
-      image = null;
-    },
-    {
-      title = "Jesus Feeds 5000";
-      summary = "Jesus feeds a large crowd with five loaves and two fish";
+      summary = "God creates the heavens and the Earth.";
       verses = [
         {
-          reference = "Matthew 14:19";
-          text = "Taking the five loaves and the two fish and looking up to heaven, he gave thanks and broke the loaves.";
-          testament = #new;
+          reference = "Genesis 1:1";
+          text = "In the beginning God created the heavens and the earth.";
+          testament = #old;
           image = null;
-        },
-        {
-          reference = "John 6:11";
-          text = "Jesus then took the loaves, gave thanks, and distributed to those who were seated as much as they wanted.";
-          testament = #new;
-          image = null;
-        },
+        }
       ];
       image = null;
     },
     {
-      title = "Ten Commandments";
-      summary = "God gives Moses the Ten Commandments on Mount Sinai";
+      title = "Moses and Exodus";
+      summary = "Moses leads the Israelites out of Egypt.";
       verses = [
         {
-          reference = "Exodus 20:1";
-          text = "And God spoke all these words:";
+          reference = "Exodus 14:21";
+          text = "Moses stretched out his hand over the sea, and the LORD drove the sea back with a strong east wind.";
           testament = #old;
           image = null;
-        },
+        }
+      ];
+      image = null;
+    },
+    {
+      title = "Jesus Walks on Water";
+      summary = "Jesus walks on water, demonstrating his divinity to the disciples.";
+      verses = [
         {
-          reference = "Exodus 20:2-3";
-          text = "I am the Lord your God, who brought you out of Egypt, out of the land of slavery. You shall have no other gods before me.";
-          testament = #old;
+          reference = "Matthew 14:25";
+          text = "Shortly before dawn Jesus went out to them, walking on the lake.";
+          testament = #new;
           image = null;
-        },
-        {
-          reference = "Exodus 20:12";
-          text = "Honor your father and mother.";
-          testament = #old;
-          image = null;
-        },
+        }
       ];
       image = null;
     },
@@ -214,3 +198,4 @@ actor {
     AccessControl.isAdmin(accessControlState, caller);
   };
 };
+

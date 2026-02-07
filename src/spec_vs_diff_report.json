@@ -1,53 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T20:29:41.579Z",
-  "summary": "The diff does not implement the requested production rollback (REQ-19). Instead, it only modifies `project_state.json`, which is unrelated to performing a deployment rollback and also violates the “no code changes introduced” acceptance criterion.",
+  "generatedAt": "2026-02-07T22:07:38.138Z",
+  "summary": "REQ-21 and REQ-23 appear implemented: backend `initialStories` is now seeded with multiple starter stories (each with title, summary, and at least one verse), and the Stories page now shows an explicit English empty-state message when the stories array is empty. REQ-22 (upgrade/migration preservation/seeding) is not evidenced in the provided diff summary.",
   "missing_requirements": [
     {
-      "id": "REQ-19",
-      "requirement": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
-      "reason": "No deployment/rollback procedure changes or deployment-target changes are shown in the diff. The only modified file is `project_state.json`, which does not demonstrate switching production from v6 to v5 or following `frontend/DEPLOYMENT.md`.",
+      "id": "REQ-22",
+      "requirement": "Ensure upgrades do not wipe out stories: implement/adjust canister state upgrade/migration logic so persisted stories are preserved across upgrades; if persisted stories array is empty, seed it with the starter set during migration/upgrade.",
+      "reason": "The diff summary shows seeding via `initialStories` and setting `var stories : [Story] = initialStories;` but does not show any upgrade hooks (e.g., preupgrade/postupgrade) or changes to a migration file/state preservation logic. No migration-related file is modified in the listed changes.",
       "evidence": [
-        "project_state.json"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "requirement": "Public production URL serves the Version 5 build (not Version 6).",
-      "reason": "There is no evidence in the diff of any production deployment configuration or rollback action that would change what the public production URL serves.",
-      "evidence": [
-        "project_state.json"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "requirement": "No code changes are introduced as part of the rollback; only the production deployment target changes.",
-      "reason": "A repository file (`project_state.json`) was modified, which is a codebase change rather than a pure production deployment target change.",
-      "evidence": [
-        "project_state.json"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "requirement": "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session.",
-      "reason": "No test evidence, smoke-check notes, or deployment validation steps are included in the diff to support this acceptance criterion.",
-      "evidence": [
-        "project_state.json"
+        "backend/main.mo (truncated) — shows `initialStories` and `var stories : [Story] = initialStories;` but no visible upgrade/migration handling in provided excerpt",
+        "File diff summary — only modified files listed: backend/main.mo, frontend/src/pages/StoriesPage.tsx, frontend-file-summaries.txt, project_state.json (no migration file changes shown)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Updated/changed project metadata/state (`project_state.json`) unrelated to performing a production rollback.",
-      "reason": "The BuildRequest explicitly calls for a production rollback only and states no draft/codebase changes; modifying `project_state.json` is not requested as part of REQ-19.",
+      "description": "Updated project metadata/state summary (project_state.json) unrelated to requested fix.",
+      "reason": "BuildRequest does not request updating project tracking metadata; only functional fixes for stories seeding, upgrade migration, and Stories page empty-state behavior.",
       "evidence": [
-        "project_state.json"
+        "project_state.json (truncated)"
+      ]
+    },
+    {
+      "description": "Updated/added a generated frontend file summaries document entry describing many components and changes beyond the requested Stories tab fix.",
+      "reason": "BuildRequest does not request maintaining or updating a summaries document; only backend seeding, upgrade migration, and Stories page empty-state behavior.",
+      "evidence": [
+        "frontend-file-summaries.txt (truncated)"
       ]
     }
   ],
-  "confidence": 0.84,
+  "confidence": 0.74,
   "changed_files": [
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/StoriesPage.tsx",
     "project_state.json"
   ]
 }

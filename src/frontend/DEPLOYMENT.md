@@ -1,19 +1,22 @@
 # Deployment Guide
 
-This document describes how to publish the current draft build to the production site.
+This document describes the exact, repeatable steps to publish the current draft build to the live production site on the Internet Computer.
 
 ## Overview
 
-The application runs on the Internet Computer (ICP) blockchain. The deployment process involves building the frontend assets and deploying both the backend canister and frontend to the IC network.
+The application runs on the Internet Computer (ICP) blockchain. This deployment process publishes the current draft build to production **without making any code changes**. The live site will serve the same behavior and content as the current draft build.
 
 ## Prerequisites
 
-- DFX CLI installed and configured
-- Internet Computer wallet with cycles
-- Admin access to the canister
-- Node.js and pnpm installed
+- DFX CLI installed and configured (version 0.15.0 or later)
+- Internet Computer wallet with sufficient cycles
+- Admin access to the production canister
+- Node.js (v18+) and pnpm installed
+- Current draft build tested and verified
 
-## Deployment Steps
+## Production Deployment Steps
 
-### 1. Build the Application
+### 1. Verify Draft Build
+
+Before deploying to production, confirm the draft build version and commit:
 

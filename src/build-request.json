@@ -1,37 +1,87 @@
 {
   "kind": "build_request",
-  "title": "Rollback production deployment from Version 6 to Version 5",
-  "priority": "normal",
+  "title": "Fix Stories tab showing header only (stories list empty) on both draft and production",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-19",
-      "text": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
-      "target": "unknown",
+      "id": "REQ-21",
+      "text": "Fix the backend so the Stories list is not empty by default: populate the backend’s initial stories dataset (the `initialStories` value used to initialize `stories`) with a basic starter set of Bible stories so that `getStories()` returns a non-empty array on a fresh install.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-1"
         ],
         "quotes": [
-          "Number 1"
+          "Good. But it doesn’t show the bible stories tab when I click on it.",
+          "It just doesn’t show the stories but it shows the top message."
         ]
       },
       "acceptanceCriteria": [
-        "The public production URL serves the Version 5 build (not Version 6).",
-        "No code changes are introduced as part of the rollback; only the production deployment target changes.",
-        "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session."
+        "On a fresh/local deployment with no prior state, calling the backend `getStories()` returns an array with at least 1 story.",
+        "Each returned story includes: `title`, `summary`, and `verses` with at least 1 verse (reference + text).",
+        "The Stories page UI has story cards to render (i.e., the list is non-empty) without requiring any user action."
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Ensure upgrades do not wipe out stories: implement/adjust the canister state upgrade/migration logic (in the project’s migration file referenced by the canister upgrade flow) so that existing persisted stories are preserved across upgrades; if an existing deployment currently has an empty stories array, seed it with the starter set during migration/upgrade.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Yes it happens on both"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Upgrading the canister preserves an existing non-empty stories array (no reset to empty).",
+        "Upgrading a canister whose persisted stories array is empty results in a non-empty stories array seeded with the starter set after the upgrade completes.",
+        "After the upgrade, `getStories()` returns the expected non-empty list on both draft and production deployments."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Update the Stories page UI to handle an empty stories array explicitly: when `getStories()` succeeds but returns an empty list, show a clear English empty-state message instead of rendering an empty grid (header-only appearance).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "It just doesn’t show the stories but it shows the top message."
+        ]
+      },
+      "acceptanceCriteria": [
+        "When `useGetStories()` returns `[]` (no error), the Stories page displays an English empty-state message (e.g., \"No stories are available right now.\") within the page content area.",
+        "When `useGetStories()` returns a non-empty array, the Stories page renders the story card grid as before.",
+        "The empty-state message does not expose any admin-only upload controls."
       ]
     }
   ],
   "constraints": [
-    "Do not modify application source code, backend state/schema, or assets as part of this request; this is a production rollback only.",
-    "Follow the project’s documented deployment/production procedures (see frontend/DEPLOYMENT.md) while performing the rollback."
+    "Backend must remain a single Motoko actor with all logic in backend/main.mo (single-actor architecture).",
+    "Do not edit frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, and anything under frontend/src/components/ui.",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "Restoring or rewinding the draft/codebase to Version 5 for future development (the user selected production rollback only).",
-    "Implementing new features or bug fixes in either frontend or backend."
+    "Do not add new navigation tabs or change the overall routing structure.",
+    "Do not change authentication (Internet Identity) behavior.",
+    "Do not add external databases or third-party services.",
+    "Do not redesign the visual theme (only address the Stories tab not showing stories / empty-state clarity)."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }
