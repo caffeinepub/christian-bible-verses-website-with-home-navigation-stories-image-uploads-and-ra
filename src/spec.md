@@ -1,10 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Publish (deploy) the current draft build to the production site so the live site matches the latest draft.
+**Goal:** Roll back the live production deployment from Version 6 to the previously deployed Version 5 without changing the draft/codebase.
 
 **Planned changes:**
-- Deploy the most recent draft build to the production (live) environment.
-- Verify the production site reflects the same behavior/content as the latest draft after deployment.
+- Re-point/restore the production deployment to the Version 5 build following the documented deployment procedure.
+- Verify after rollback that core pages (Home, Daily Verse, Stories, Testament pages) load successfully while signed out.
 
-**User-visible outcome:** Visiting the production site shows the latest draft version’s behavior/content.
+**User-visible outcome:** The public production site serves Version 5 (not Version 6), and core pages load successfully for anonymous visitors.

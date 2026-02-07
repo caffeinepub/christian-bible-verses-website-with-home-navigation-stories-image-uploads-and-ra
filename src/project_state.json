@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 15,
   "summary": "Website for Christian Bible verses featuring a Home Screen with multiple navigation options (Old Testament, New Testament, Daily Verse, Stories, etc.), a starter set of common Bible stories chosen by the assistant, story/verse images that can be uploaded only by the site owner (admin) and viewed by everyone, and a randomly generated Daily Verse.",
   "architectural_notes": [
     "Implement admin-only image upload authorization using a single admin identity allowlist (site owner). Hide upload controls for non-admin users; enforce permissions server-side.",
@@ -8,7 +8,7 @@
     "Ensure uploaded image storage/access rules allow public read for all images (story/verse), while keeping write/update restricted to the single admin; frontend should fetch/display images without requiring viewer authentication."
   ],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-home-screen-that-presents-navigation-options-for-old-testament-new-testament-daily-verse-and-stories",
@@ -201,6 +201,20 @@
       "summary": "Ensure previously uploaded image(s) already stored in the canister become publicly readable after the authorization change, without requiring the admin to re-upload; add a Motoko state migration only if necessary to update existing stored blob permissions/metadata.",
       "reqIds": [
         "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Roll back the live production site from Version 6 to the previously deployed Version 5.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
+      "reqIds": [
+        "REQ-19"
       ],
       "status": "pending"
     }

@@ -1,39 +1,53 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T20:23:07.425Z",
-  "summary": "The diff adds a deployment guide document but does not show any concrete deployment/publish implementation or configuration changes that would update the production site to the latest draft build. There are also metadata/documentation summary updates not explicitly requested by REQ-18.",
+  "generatedAt": "2026-02-07T20:29:41.579Z",
+  "summary": "The diff does not implement the requested production rollback (REQ-19). Instead, it only modifies `project_state.json`, which is unrelated to performing a deployment rollback and also violates the “no code changes introduced” acceptance criterion.",
   "missing_requirements": [
     {
-      "id": "REQ-18",
-      "requirement": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
-      "reason": "The diff only adds a deployment runbook/guide; it does not include any actual deploy action, CI/CD pipeline/config, environment/hosting configuration, or other changes that would perform or trigger a production publish. Acceptance criteria require the production site to be updated, which is not evidenced by documentation alone.",
+      "id": "REQ-19",
+      "requirement": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
+      "reason": "No deployment/rollback procedure changes or deployment-target changes are shown in the diff. The only modified file is `project_state.json`, which does not demonstrate switching production from v6 to v5 or following `frontend/DEPLOYMENT.md`.",
       "evidence": [
-        "frontend/DEPLOYMENT.md",
-        "frontend-file-summaries.txt"
+        "project_state.json"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "requirement": "Public production URL serves the Version 5 build (not Version 6).",
+      "reason": "There is no evidence in the diff of any production deployment configuration or rollback action that would change what the public production URL serves.",
+      "evidence": [
+        "project_state.json"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "requirement": "No code changes are introduced as part of the rollback; only the production deployment target changes.",
+      "reason": "A repository file (`project_state.json`) was modified, which is a codebase change rather than a pure production deployment target change.",
+      "evidence": [
+        "project_state.json"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "requirement": "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session.",
+      "reason": "No test evidence, smoke-check notes, or deployment validation steps are included in the diff to support this acceptance criterion.",
+      "evidence": [
+        "project_state.json"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Project metadata updated to describe product features (site theme, stories, image uploads, daily verse, etc.) unrelated to the operational publish/deploy request.",
-      "reason": "REQ-18 is an operational publish action with a constraint to avoid product feature changes; updating feature descriptions/records is not requested as part of deploying the current draft to production.",
+      "description": "Updated/changed project metadata/state (`project_state.json`) unrelated to performing a production rollback.",
+      "reason": "The BuildRequest explicitly calls for a production rollback only and states no draft/codebase changes; modifying `project_state.json` is not requested as part of REQ-19.",
       "evidence": [
-        "project_state.json (truncated)"
-      ]
-    },
-    {
-      "description": "Frontend feature inventory/summary updated to include many UI/auth/image upload/route details beyond deployment documentation.",
-      "reason": "REQ-18 only asks to publish the current draft to production; changing/refreshing a broad frontend file summary is not requested by the deploy requirement and may violate the constraint to avoid unrelated product changes.",
-      "evidence": [
-        "frontend-file-summaries.txt"
+        "project_state.json"
       ]
     }
   ],
-  "confidence": 0.66,
+  "confidence": 0.84,
   "changed_files": [
-    "frontend-file-summaries.txt",
-    "frontend/DEPLOYMENT.md",
     "project_state.json"
   ]
 }

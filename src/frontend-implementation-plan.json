@@ -1,20 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Production publish (deploy) instructions for current draft build",
+  "title": "Production rollback verification (Version 6 → Version 5)",
   "requirements": [
     {
-      "id": "REQ-18",
-      "summary": "Document and standardize the steps to publish the current draft build to the production site without changing product features.",
+      "id": "REQ-19",
+      "summary": "Roll back the live production deployment to the previously deployed Version 5 build without changing the draft/codebase, and verify core pages load signed-out.",
       "acceptanceCriteria": [
-        "The production (live) site is updated to the most recent draft build.",
-        "After deployment completes, visiting the production site shows the same behavior/content as the latest draft."
+        "The public production URL serves the Version 5 build (not Version 6).",
+        "No code changes are introduced as part of the rollback; only the production deployment target changes.",
+        "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session."
       ],
       "file_operations": [
         {
           "path": "frontend/DEPLOYMENT.md",
-          "operation": "create",
-          "description": "Add a concise, operator-focused deployment runbook describing how to publish the current draft build to production, including: prerequisites, build step, publish step, rollback guidance, and a post-deploy verification checklist aligning with the acceptance criteria. Reference the selected github-export-icp-cli template/scripts as the intended deployment mechanism where applicable; verify the component's usage instructions before implementing."
+          "operation": "modify",
+          "description": "Operational-only: follow the existing documented deployment/production procedures in this file to perform the production rollback to Version 5. Do not commit any edits to this file or any other source/assets as part of the rollback request; use it strictly as the runbook and perform post-rollback signed-out smoke checks for Home, Daily Verse, Stories, and Testament pages against the public production URL."
         }
       ]
     }

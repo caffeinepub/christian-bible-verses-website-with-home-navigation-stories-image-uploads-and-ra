@@ -1,45 +1,37 @@
 {
   "kind": "build_request",
-  "title": "Publish the current draft version to production",
-  "priority": "high",
+  "title": "Rollback production deployment from Version 6 to Version 5",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-18",
-      "text": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
+      "id": "REQ-19",
+      "text": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
       "target": "unknown",
       "source": {
         "messageIds": [
-          "msg-8"
+          "msg-6"
         ],
         "quotes": [
-          "Do it now."
+          "Number 1"
         ]
       },
       "acceptanceCriteria": [
-        "The production (live) site is updated to the most recent draft build.",
-        "After deployment completes, visiting the production site shows the same behavior/content as the latest draft."
+        "The public production URL serves the Version 5 build (not Version 6).",
+        "No code changes are introduced as part of the rollback; only the production deployment target changes.",
+        "After rollback, core pages (Home, Daily Verse, Stories, Testament pages) load successfully in an anonymous/signed-out session."
       ]
     }
   ],
   "constraints": [
-    "This request is an operational deploy/publish action; do not introduce product feature changes unless required to complete the publish step."
+    "Do not modify application source code, backend state/schema, or assets as part of this request; this is a production rollback only.",
+    "Follow the project’s documented deployment/production procedures (see frontend/DEPLOYMENT.md) while performing the rollback."
   ],
   "nonGoals": [
-    "Adding new app features unrelated to publishing/deployment.",
-    "Changing backend authorization, storage, or image behavior as part of this request."
+    "Restoring or rewinding the draft/codebase to Version 5 for future development (the user selected production rollback only).",
+    "Implementing new features or bug fixes in either frontend or backend."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

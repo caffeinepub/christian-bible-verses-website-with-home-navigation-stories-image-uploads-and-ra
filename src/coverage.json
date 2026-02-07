@@ -1,34 +1,30 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T20:23:07.428Z",
+  "generatedAt": "2026-02-07T20:29:41.581Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 1,
-    "implemented": 1,
+    "implemented": 0,
     "items": [
       {
-        "id": "REQ-18",
-        "summary": "Publish (deploy) the current draft build to the production site so that the live site reflects the latest draft version.",
-        "status": "implemented",
+        "id": "REQ-19",
+        "summary": "Roll back the live production site from Version 6 to the previously deployed Version 5 (production rollback only; do not change the draft/codebase).",
+        "status": "missing",
         "plannedFiles": [
           "frontend/DEPLOYMENT.md"
         ],
-        "matchedFiles": [
-          "frontend/DEPLOYMENT.md"
-        ]
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
     "feature_evidence.json",
-    "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/DEPLOYMENT.md",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
