@@ -1,0 +1,71 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-07T19:20:33.991Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-10",
+        "summary": "Add frontend data access (React Query hook) to fetch the caller admin status from the backend and wire it into the image upload component(s) so authorization state updates correctly after login/logout.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/story/ImageUploadSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/components/story/ImageUploadSection.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Enforce backend authorization so that only the single admin (site owner) can upload or replace story/verse images; all other users (including signed-in non-admin users) must be rejected by the backend if they attempt to upload.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Expose a backend query method that allows the frontend to determine whether the current caller is the admin (site owner), without granting upload capability by itself.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Update the image upload UI so that the upload controls are shown only for the admin user; non-admin users must not see the file picker/upload button. Non-admin users should still be able to view existing images.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/story/ImageUploadSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/story/ImageUploadSection.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/story/ImageUploadSection.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

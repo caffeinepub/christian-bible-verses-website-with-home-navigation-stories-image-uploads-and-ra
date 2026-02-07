@@ -1,0 +1,16 @@
+{
+  "frontend/src/index.css": "Global styles with warm Christian-themed OKLCH color system featuring parchment backgrounds, deep olive greens, and earth tones for both light and dark modes, plus custom verse and story typography utilities.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with serif fonts (Georgia, Cambria), custom color tokens mapped to OKLCH variables, and soft shadow utilities for the reverent design aesthetic.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup defining all routes (home, stories, story detail, daily verse, testaments, verse detail) wrapped in a shared SiteLayout.",
+  "frontend/src/components/layout/SiteLayout.tsx": "Shared layout component with sticky header navigation, site branding, login button, profile setup dialog, and footer with attribution and faith-themed tagline.",
+  "frontend/src/components/auth/LoginButton.tsx": "Authentication button component using Internet Identity hook to handle login/logout with loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetupDialog.tsx": "Modal dialog that appears on first login to collect user's display name, preventing modal flash by checking profile loading state before showing.",
+  "frontend/src/pages/HomePage.tsx": "Landing page displaying four navigation cards (Daily Verse, Bible Stories, Old Testament, New Testament) with icons, descriptions, and gradient backgrounds in the Christian theme.",
+  "frontend/src/pages/StoriesPage.tsx": "Stories list page fetching and displaying all Bible stories from backend in a grid of clickable cards showing title, summary, and verse count.",
+  "frontend/src/pages/StoryDetailPage.tsx": "Story detail view showing title, summary, key verses with references and text, plus authenticated image upload section for the story.",
+  "frontend/src/pages/DailyVersePage.tsx": "Daily verse page displaying today's randomly selected verse with reference, text in blockquote format, current date, and manual refresh button.",
+  "frontend/src/pages/TestamentPage.tsx": "Reusable testament browsing page (Old/New) displaying filtered verses in a grid of cards with references and text previews, linking to verse detail.",
+  "frontend/src/pages/VerseDetailPage.tsx": "Verse detail view showing reference, full text in blockquote format, testament label, and optional uploaded image if available.",
+  "frontend/src/components/story/ImageUploadSection.tsx": "Reusable image upload component with file validation, progress tracking, preview display, and admin-only upload controls that hide for non-admin users while keeping images visible to all.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including user profile management, admin status check, stories, verses by testament, daily verse, and image uploads with proper cache invalidation."
+}
